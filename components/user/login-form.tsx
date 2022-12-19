@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation"
 
+import { Icons } from "@/components/icons"
 import React from "react"
 import { cn } from "@/lib/utils"
 import { loginFormSchema } from "@/lib/validations/login-form"
@@ -39,7 +40,12 @@ export function LoginForm({ ...props }: Props) {
     setIsLoading(false)
 
     if (!signInResult?.ok) {
-      alert("something went wrong")
+      alert("Something went wrong")
+      return
+    }
+
+    if (signInResult?.error) {
+      alert("Wrong credentials")
       return
     }
 
@@ -78,8 +84,7 @@ export function LoginForm({ ...props }: Props) {
             className="inline-flex w-full items-center justify-center rounded-lg bg-[#24292F] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#24292F]/90 focus:outline-none focus:ring-4 focus:ring-[#24292F]/50 disabled:opacity-50 dark:hover:bg-[#050708]/30 dark:focus:ring-slate-500"
             disabled={isLoading}
           >
-            {/* {isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />} */}
-            Sign In with Email
+            {isLoading ? <Icons.spinner className="mr-2 h-4 w-4 animate-spin" /> : "Sign In with Email"}
           </button>
         </div>
       </form>
